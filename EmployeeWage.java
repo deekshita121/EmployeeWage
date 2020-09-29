@@ -2,16 +2,13 @@ public class EmployeeWage
 {
  public static final int FULL_TIME=1;
  public static final int PART_TIME=2;
- public static final int MAX_DAYS=20;
- public static final int MAX_HRS=100;
- public static final int RATE=20;
 
- public static int computeEmpWage()
+ public static int computeEmpWage(String company, int rate, int maxHrs, int maxDays)
  {
   int totalEmphrs=0;
   int emphrs=0;
   int days=0;
-  while(emphrs<MAX_HRS && days<MAX_DAYS)
+  while(emphrs<maxHrs && days<maxDays)
   {
    days++;
    int check=(int)Math.floor(Math.random()*10 % 3);
@@ -29,14 +26,15 @@ public class EmployeeWage
    totalEmphrs +=emphrs;
    System.out.println("Day : "+days+" Emp hr : "+emphrs);
   }
-  int totalEmpwage = totalEmphrs * RATE;
-  System.out.println("Total employee wage is "+totalEmpwage);
+  int totalEmpwage = totalEmphrs * rate;
+  System.out.println("Total employee wage for company : "+company+" is "+totalEmpwage);
   return totalEmpwage;
  }
 
  public static void main(String args[])
  {
-   computeEmpWage();
+   computeEmpWage("DMart", 20, 100, 20);
+   computeEmpWage("BigBazar", 30, 110, 18);
  }
 
 }
