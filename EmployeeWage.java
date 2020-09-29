@@ -1,27 +1,62 @@
-public class EmployeeWage
+class CompanyEmpWage
 {
- public static final int FULL_TIME=1;
- public static final int PART_TIME=2;
+ public final String company;
+ public final int rate;
+ public final int maxDays;
+ public final int maxHrs;
+ public int totalEmpWage;
 
- private final String company;
- private final int rate;
- private final int maxHrs;
- private final int maxDays;
- private int totalEmpWage;
-
- public EmployeeWage(String company, int rate, int maxDays, int maxHrs)
+ public CompanyEmpWage(String company, int rate, int maxDays, int maxHrs)
  {
   this.company=company;
   this.rate=rate;
   this.maxDays=maxDays;
   this.maxHrs=maxHrs;
  }
- public void computeEmpWage( )
+ public void setTotalEmpWage(int totalEmpWage)
+ {
+ this.totalEmpWage=totalEmpWage;
+ }
+ public String toString()
+ {
+ return "Total EmpWage for Company " +company+" is "+totalEmpWage;
+ }
+}
+
+public class EmployeeWage
+{
+ public static final int FULL_TIME=1;
+ public static final int PART_TIME=2;
+
+ private int numOfCompany=0;
+ private CompanyEmpWage[] companyEmpWageArray;
+
+ public EmployeeWage()
+ {
+  companyEmpWageArray=new CompanyEmpWage[5];
+ }
+
+ public void addCompanyEmpWage(String company, int rate, int maxDays, int maxHrs)
+ {
+  companyEmpWageArray[numOfCompany]=new CompanyEmpWage(company, rate, maxDays, maxHrs);
+  numOfCompany++;
+ }
+
+ private void computeEmpWage()
+ {
+  for(int i=0;i<numOfCompany;i++)
+  {
+   companyEmpWageArray[i].setTotalEmpWage(this.computeEmpWage(companyEmpWageArray[i]));
+   System.out.println(companyEmpWageArray[i]);
+  }
+ }
+
+ private int computeEmpWage(CompanyEmpWage companyEmpWage)
  {
   int totalEmphrs=0;
   int emphrs=0;
   int days=0;
-  while(emphrs<maxHrs && days<maxDays)
+  while(emphrs<companyEmpWage.maxHrs && days<companyEmpWage.maxDays)
   {
    days++;
    int check=(int)Math.floor(Math.random()*10) % 3;
@@ -39,22 +74,15 @@ public class EmployeeWage
    totalEmphrs +=emphrs;
    System.out.println("Day : "+days+" Emp hr : "+emphrs);
   }
-  totalEmpWage = totalEmphrs * rate;
- }
-
- public String toString()
- {
-  return "Total employee wage for company "+company+" is "+totalEmpWage;
+  return totalEmphrs * companyEmpWage.rate;
  }
 
  public static void main(String args[])
  {
-  EmployeeWage obj1=new EmployeeWage("DMart",20,20,100);
-  EmployeeWage obj2=new EmployeeWage("Bigbazar",30,18,110);
-  obj1.computeEmpWage();
-  System.out.println(obj1);
-  obj2.computeEmpWage();
-  System.out.println(obj2);
+  EmployeeWage obj=new EmployeeWage();
+  obj.addCompanyEmpWage("DMart",20,20,100);
+  obj.addCompanyEmpWage("Bigbazar",30,18,110);
+  obj.computeEmpWage();
  }
 
 }
