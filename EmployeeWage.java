@@ -17,7 +17,7 @@ public class EmployeeWage implements IComputeEmpWage
     numOfCompany++;
   }
 
-  private void computeEmpWage()
+  public void computeEmpWage()
   {
     for(int i=0;i<numOfCompany;i++)
     {
