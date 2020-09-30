@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.HashMap;
 public class EmployeeWage implements IComputeEmpWage
 {
   public static final int FULL_TIME=1;
@@ -68,7 +69,7 @@ public class EmployeeWage implements IComputeEmpWage
     employeeWage.addCompanyEmpWage("DMart",20,20,100);
     employeeWage.addCompanyEmpWage("Bigbazar",30,18,110);
     employeeWage.computeEmpWage();
-    System.out.println("Total Wage for DMart Company: "+employeeWage.getTotalWage("DMart"));
+    System.out.println("Total Wage for "+companyEmpWage.company +" : "+employeeWage.getTotalWage("DMart"));
   }
 
 }
