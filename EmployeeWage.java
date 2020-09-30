@@ -69,7 +69,6 @@ public class EmployeeWage implements IComputeEmpWage
     employeeWage.addCompanyEmpWage("DMart",20,20,100);
     employeeWage.addCompanyEmpWage("Bigbazar",30,18,110);
     employeeWage.computeEmpWage();
-    System.out.println("Total Wage for "+companyEmpWage.company +" : "+employeeWage.getTotalWage("DMart"));
   }
 
 }
