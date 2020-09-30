@@ -4,18 +4,20 @@ public class EmployeeWage implements IComputeEmpWage
   public static final int FULL_TIME=1;
   public static final int PART_TIME=2;
 
-  private int numOfCompany=0;
-  private ArrayList<CompanyEmpWage> companyEmpWageList;
+  private LinkedList<CompanyEmpWage> companyEmpWageList;
+  private Map<String,CompanyEmpWage> companyToEmpWageMap;
 
   public EmployeeWage()
   {
-    companyEmpWageList=new ArrayList<>();
+    companyEmpWageList=new LinkedList<>();
+    companyToEmpWageMap=new HashMap<>();
   }
 
   public void addCompanyEmpWage(String company, int rate, int maxDays, int maxHrs)
   {
     CompanyEmpWage companyEmpWage=new CompanyEmpWage(company, rate, maxDays, maxHrs);
     companyEmpWageList.add(companyEmpWage);
+    companyToEmpWageMap.put(company, companyEmpWage);
   }
 
   public void computeEmpWage()
@@ -55,13 +57,18 @@ public class EmployeeWage implements IComputeEmpWage
     }
     return totalEmphrs * companyEmpWage.rate;
   }
+  public int getTotalWage(String company)
+  {
+    return companyToEmpWageMap.get(company).totalEmpWage;
+  }
 
   public static void main(String args[])
   {
-    EmployeeWage obj=new EmployeeWage();
-    obj.addCompanyEmpWage("DMart",20,20,100);
-    obj.addCompanyEmpWage("Bigbazar",30,18,110);
-    obj.computeEmpWage();
+    IComputeEmpWage employeeWage=new EmployeeWage();
+    employeeWage.addCompanyEmpWage("DMart",20,20,100);
+    employeeWage.addCompanyEmpWage("Bigbazar",30,18,110);
+    employeeWage.computeEmpWage();
+    System.out.println("Total Wage for DMart Company: "+employeeWage.getTotalWage("DMart"));
   }
 
 }
